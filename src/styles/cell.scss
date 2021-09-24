@@ -1,0 +1,27 @@
+@import "./variable.scss";
+.change-bg {
+  border-radius: 4px;
+  padding: 4px;
+  margin-top: 12px;
+  margin-left: 12px;
+  width: 48px;
+  height: 22px;
+}
+.positive {
+  background: var(--change-cell-green-bg);
+  color: var(--change-cell-green-color);
+}
+
+.negative {
+  background: var(--change-cell-red-bg);
+  color: var(--change-cell-red-color);
+}
+.cell-with-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.single-cell {
+  padding-left: 25px;
+  cursor: pointer;
+}

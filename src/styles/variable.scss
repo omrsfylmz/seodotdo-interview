@@ -1,0 +1,74 @@
+:root {
+  --app-bg-color: #f7f7fc;
+
+  --header-bg: rgb(115, 115, 255, 0.03);
+  --header-item-color: #8282bb;
+  --border-color: #e3e3fc;
+  --border-color-pageOf: #e2e1eb;
+
+  --grid-cell-color: #6b6b99;
+  --grid-row-bg: white;
+  --grid-header-bg: #fcfcff;
+
+  --grid-row-hover: rgba(115, 115, 255, 0.03);
+
+  --change-cell-green-bg: rgba(33, 217, 155, 0.1);
+  --change-cell-green-color: #21d99b;
+
+  --change-cell-red-bg: rgba(255, 77, 121, 0.1);
+  --change-cell-red-color: #ff4d79;
+
+  --hero-title-color: #6b6b99;
+  --hero-bg-color: #ffffff;
+
+  --modal-title: #9999cc;
+  --modal-keyword: #6b6b99;
+  --modal-bg: #fff;
+  --modal-close: #9999cc;
+  --modal-close-hover: #b4b4d3;
+
+  --toggle-shadow-color: #050200;
+  --toggle-btn-color: #6b6b99;
+  --toggle-btn-bg-color: #ffffff;
+}
+
+.dark {
+  --app-bg-color: #2a2a3d;
+
+  --header-bg: rgb(27, 29, 30);
+  --header-item-color: rgb(153, 181, 204);
+  --border-color: #e3e3fc;
+  --grid-cell-color: #e2defa;
+  --grid-row-bg: rgb(18, 20, 20);
+
+  --grid-header-bg: rgb(18, 20, 20);
+
+  --grid-row-hover: rgb(46, 48, 53);
+
+  --hero-title-color: rgb(182, 177, 166);
+  --hero-bg-color: rgb(24, 26, 27);
+
+  --modal-title: rgb(153, 172, 204);
+  --modal-keyword: rgb(182, 177, 166);
+  --modal-bg: rgb(60, 64, 67);
+  --modal-close: rgb(153, 172, 204);
+  --modal-close-hover: #e2defa;
+
+  --toggle-shadow-color: #ffa260;
+
+  --toggle-btn-color: rgb(182, 177, 166);
+  --toggle-btn-bg-color: rgb(24, 26, 27);
+
+  ::-webkit-scrollbar {
+    background-color: #1c1e1f;
+    color: #c5c1b9;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: #181a1b;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #2a2c2e;
+  }
+}

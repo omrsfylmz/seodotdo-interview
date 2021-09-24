@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <apexchart
-      width="550"
+      width="610"
       type="bar"
       :options="chartOptions"
       :series="series"
@@ -10,7 +10,6 @@
 </template>
 <script>
 import VueApexCharts from "vue3-apexcharts";
-import axios from "axios";
 export default {
   components: {
     apexchart: VueApexCharts,
@@ -31,28 +30,25 @@ export default {
           data: this.volumeSeries,
         },
       ];
-      // console.log(`this.volumeCategories `, this.volumeCategories);
-      // console.log(`this.volumeSeries`, this.volumeSeries);
-      // console.log(`this.series`, this.series);
-      // console.log(`this.volumeData`, this.volumeData);
-      // ApexCharts.exec("searchVolumeChart", "updateOptions", {
-      //   xaxis: {
-      //     categories: this.volumeCategories,
-      //   },
-      // });
+      console.log(this.series);
     },
   },
   data() {
     return {
       chartOptions: {
+        colors: ["#9999CC"],
+        dataLabels: {
+          enabled: false,
+        },
         chart: {
-          id: "vuechart-example",
+          id: "seodo",
         },
         xaxis: {
           labels: {
             style: {
-              colors: "#6B6B99",
+              colors: "#9999CC",
               fontSize: "12px",
+              fontFamily: "Barlow, sans-serif",
               fontWeight: 400,
             },
           },
@@ -78,9 +74,21 @@ export default {
               fontSize: "12px",
               fontWeight: 400,
             },
+            formatter: function(num) {
+              if (num > 999 && num < 1000000) {
+                return Math.abs(num) > 999
+                  ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+                  : Math.sign(num) * Math.abs(num);
+              } else if (num > 1000000) {
+                return Math.abs(num) > 1000000
+                  ? Math.sign(num) * (Math.abs(num) / 1000000).toFixed(1) + "M"
+                  : Math.sign(num) * Math.abs(num);
+              }
+            },
           },
         },
       },
+
       volumeSeries: [],
       volumeCategories: [],
       series: [
@@ -91,25 +99,5 @@ export default {
       ],
     };
   },
-  // watch: {
-  //   selectedKeyword() {
-  //     axios
-  //       .post(process.env.VUE_APP_ITEM_API, {
-  //         country: "tr",
-  //         lang: "tr",
-  //         keyword: this.selectedKeyword,
-  //       })
-  //       .then(({ data }) => {
-  //         this.series = [
-  //           ...this.series,
-  //           {
-  //             name: this.selectedKeyword,
-  //             data: data.map((mounth) => mounth.volume),
-  //           },
-  //         ];
-  //       })
-  //       .catch((e) => console.log(e));
-  //   },
-  // },
 };
 </script>

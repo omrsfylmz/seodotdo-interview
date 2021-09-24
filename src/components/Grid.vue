@@ -1,15 +1,17 @@
 <template>
-  <ag-grid-vue
-    style="width: 1000px; height: 650px;"
-    class="ag-theme-alpine"
-    :columnDefs="columnDefs"
-    rowSelection="multiple"
-    :rowData="rowData"
-    pagination="true"
-    paginationAutoPageSize="true"
-    @rowClicked="onRowClicked"
-  >
-  </ag-grid-vue>
+  <div class="grid">
+    <ag-grid-vue
+      id="myGrid"
+      style="width: 100%; height: 516px"
+      class="ag-theme-alpine"
+      :columnDefs="columnDefs"
+      :rowData="rowData"
+      pagination="true"
+      @rowClicked="onRowClicked"
+      :paginationPageSize="paginationPageSize"
+    >
+    </ag-grid-vue>
+  </div>
 </template>
 
 <script>
@@ -17,22 +19,31 @@ import { AgGridVue } from "ag-grid-vue3";
 import axios from "axios";
 import { inject } from "vue";
 
+// Custom Ag-grid Cell Components
+import changeCell from "./ChangeCell.vue";
+import avgSearchVolumeCell from "./SearchVolumeCell.vue";
+import rankCell from "./RankCell.vue";
+import pixelRankCell from "./PixelRankCell.vue";
+import diffPixelRankCell from "./DiffPixelRankCell.vue";
+import urlCell from "./UrlCell.vue";
+import cpcCell from "./CpcCell.vue";
+
 export default {
   name: "App",
   data() {
     return {
       columnDefs: null,
       rowData: null,
-      paginationSize: null,
+      paginationPageSize: null,
       keyword: null,
       showModal: true,
     };
   },
   setup() {
-    const useshowModal = inject("showModal");
+    const useShowModal = inject("showModal");
 
     return {
-      useshowModal,
+      useShowModal,
     };
   },
 
@@ -40,6 +51,7 @@ export default {
     AgGridVue,
   },
   beforeMount() {
+    this.paginationPageSize = 20;
     this.columnDefs = [
       {
         headerName: "KEYWORD",
@@ -51,6 +63,7 @@ export default {
       {
         headerName: "SEARCH VOLUME",
         field: "avgSearchVolume",
+        cellRendererFramework: avgSearchVolumeCell,
         sortable: true,
         filter: true,
         width: 170,
@@ -58,7 +71,8 @@ export default {
       {
         headerName: "RANK",
         field: "rank",
-        // valueFormatter: '"★ " + value.toLocaleString()',
+        cellRendererFramework: rankCell,
+        cellStyle: { marginLeft: "-10px" },
         sortable: true,
         filter: true,
         width: 99,
@@ -66,23 +80,13 @@ export default {
       {
         headerName: "CHANGE",
         field: "diffRank",
-        // valueFormatter: (params) =>
-        //   params.value > 0
-        //     ? `${"+" + params.value.toLocaleString()}`
-        //     : `${params.value.toLocaleString()}`,
-        sortable: true,
-        filter: true,
+        cellRendererFramework: changeCell,
         width: 120,
-        // cellStyle: (params) =>
-        //   params.value == 0
-        //     ? { background: "white", color: "#6b6b99" }
-        //     : params.value > 0
-        //     ? { background: "#ecfcf7", color: "#21d99b" }
-        //     : { background: "#fff0f4", color: "#ff4d79" },
       },
       {
         headerName: "PX RANK",
         field: "pixelRank",
+        cellRendererFramework: pixelRankCell,
         sortable: true,
         filter: true,
         width: 120,
@@ -90,29 +94,22 @@ export default {
       {
         headerName: "CHANGE",
         field: "diffPixelRank",
-        // valueFormatter: (params) =>
-        //   params.value > 0
-        //     ? `${"+" + params.value.toLocaleString() + "%"}`
-        //     : `${params.value.toLocaleString() + "%"}`,
+        cellRendererFramework: diffPixelRankCell,
         sortable: true,
         filter: true,
         width: 120,
-        // cellStyle: (params) =>
-        //   params.value == 0
-        //     ? { background: "white", color: "#6b6b99" }
-        //     : params.value > 0
-        //     ? { background: "#ecfcf7", color: "#21d99b" }
-        //     : { background: "#fff0f4", color: "#ff4d79" },
       },
       {
         headerName: "URL-PAGE",
         field: "landingPage",
+        cellRendererFramework: urlCell,
         sortable: true,
         filter: true,
         width: 210,
       },
       {
         headerName: "CPC - $",
+        cellRendererFramework: cpcCell,
         field: "cpc",
         sortable: true,
         filter: true,
@@ -125,22 +122,18 @@ export default {
         firstDate: "2020-02-25",
         lastDate: "2020-02-20",
         domain: "akakce.com",
-        limit: "10",
+        limit: "100",
         page: 3,
       })
       .then(({ data }) => {
         this.rowData = data;
       })
       .catch((e) => console.log(e));
-    this.paginationSize = 10;
   },
   methods: {
     onRowClicked(params) {
-      this.useshowModal = true;
-      this.changeKeyword(params.node.data.keyword);
-    },
-    changeKeyword(keyword) {
-      this.$emit("selectedKeyword", keyword);
+      this.useShowModal = true;
+      this.$emit("selectedKeyword", params.node.data.keyword);
     },
   },
 };
@@ -149,4 +142,71 @@ export default {
 <style lang="scss">
 @import "../../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+@import url("../styles/variable.scss");
+
+.grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.ag-center-cols-viewport {
+  background-color: var(--grid-row-bg);
+}
+.ag-icon {
+  color: var(--grid-cell-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 5px;
+}
+.ag-body-viewport [col-id="keyword"] {
+  border-right: 1px solid var(--border-color) !important;
+}
+.ag-paging-description {
+  border: 1px solid var(--border-color-pageOf);
+  border-radius: 4px;
+  padding: 5px;
+}
+.ag-paging-panel {
+  background-color: var(--grid-row-bg);
+}
+.ag-paging-description,
+.ag-paging-row-summary-panel {
+  color: var(--grid-cell-color);
+}
+.ag-theme-alpine .ag-icon-last,
+.ag-theme-alpine .ag-icon-first {
+  display: none;
+}
+.ag-theme-alpine {
+  .ag-header {
+    background-color: var(--grid-header-bg);
+  }
+  .ag-row {
+    background-color: var(--grid-row-bg);
+  }
+  .ag-row:hover {
+    background-color: var(--grid-row-hover);
+  }
+  .ag-theme-alpine,
+  .ag-root-wrapper {
+    border: none !important;
+  }
+  .ag-header-group-cell-label,
+  .ag-header-cell-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--grid-cell-color);
+  }
+  .ag-cell-value {
+    color: var(--grid-cell-color);
+  }
+  .ag-body-viewport [col-id="diffRank"],
+  .ag-body-viewport [col-id="diffPixelRank"] {
+    width: 89px !important;
+    height: 36px;
+    margin: 2px 0 0 0;
+    border-radius: 4px;
+  }
+}
 </style>
