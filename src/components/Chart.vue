@@ -30,7 +30,6 @@ export default {
           data: this.volumeSeries,
         },
       ];
-      console.log(this.series);
     },
   },
   data() {
