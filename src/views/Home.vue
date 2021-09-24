@@ -42,7 +42,7 @@ export default {
     setTheme() {
       const body = document.querySelector("body");
       const toggleIcon = document.querySelector(".toggle-icon");
-      console.log("omer");
+
       if (body.classList.contains("dark")) {
         body.classList.add("light");
         body.classList.remove("dark");
