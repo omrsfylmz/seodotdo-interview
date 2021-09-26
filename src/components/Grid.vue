@@ -27,6 +27,7 @@ import pixelRankCell from "./PixelRankCell.vue";
 import diffPixelRankCell from "./DiffPixelRankCell.vue";
 import urlCell from "./UrlCell.vue";
 import cpcCell from "./CpcCell.vue";
+import keywordCell from "./KeywordCell.vue";
 
 export default {
   name: "App",
@@ -56,6 +57,7 @@ export default {
       {
         headerName: "KEYWORD",
         field: "keyword",
+        cellRendererFramework: keywordCell,
         sortable: true,
         filter: true,
         width: 230,
@@ -122,7 +124,7 @@ export default {
         firstDate: "2020-02-25",
         lastDate: "2020-02-20",
         domain: "akakce.com",
-        limit: "1",
+        limit: "100",
         page: 3,
       })
       .then(({ data }) => {
