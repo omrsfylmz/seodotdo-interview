@@ -122,7 +122,7 @@ export default {
         firstDate: "2020-02-25",
         lastDate: "2020-02-20",
         domain: "akakce.com",
-        limit: "100",
+        limit: "1",
         page: 3,
       })
       .then(({ data }) => {
@@ -207,6 +207,9 @@ export default {
     height: 36px;
     margin: 2px 0 0 0;
     border-radius: 4px;
+  }
+  .ag-overlay-loading-wrapper {
+    background-color: var(--grid-row-bg);
   }
 }
 </style>
