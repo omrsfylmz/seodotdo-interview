@@ -1,5 +1,7 @@
 # seodo-interview
 
+![Alt Text](https://imgur.com/a/tzmkkmR)
+
 ## General Information and Features
 
 - This project created for [Seo.do](https://seo.do). Frontend interview
