@@ -1,6 +1,6 @@
 # seodo-interview
 
-![Alt Text](https://imgur.com/a/tzmkkmR)
+![Gif](https://imgur.com/a/tzmkkmR)
 
 ## General Information and Features
 
