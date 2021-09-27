@@ -1,6 +1,6 @@
 # seodo-interview
 
-![Gif](https://imgur.com/a/tzmkkmR)
+![seodoo](https://user-images.githubusercontent.com/40966566/134866649-4cd0059a-25f9-4c7a-8ca1-4e616d9b96ac.gif)
 
 ## General Information and Features
 
