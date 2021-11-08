@@ -1,6 +1,5 @@
 <template>
   <router-view />
-  <h1>Omer</h1>
 </template>
 
 <style lang="scss">
